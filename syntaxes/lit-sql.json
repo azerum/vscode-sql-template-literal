@@ -3,20 +3,32 @@
   "injectionSelector": "L:source -comment -string",
   "patterns": [
     {
-      "name": "taggedTemplates",
+      "name": "commentedTaggedLiteral",
       "contentName": "meta.embedded.block.sql",
-      "begin": "(?i)\\b(?=\\w+`)(\\w*sql\\w*)((`))",
+
+      "begin": "(?i)(?=[\\w\/*]{7})((\/\\*)sql(\\*\/))((`))",
       "beginCaptures": {
         "1": {
-          "name": "entity.name.function.tagged-template.js"
+          "name": "comment.block.js"
         },
+
         "2": {
+          "name": "punctuation.definition.comment.js"
+        },
+
+        "3": {
+          "name": "punctuation.definition.comment.js"
+        },
+
+        "4": {
           "name": "string.js"
         },
-        "3": {
+
+        "5": {
           "name": "punctuation.definition.string.template.begin.js"
         }
       },
+
       "end": "(`)",
       "endCaptures": {
         "0": {
@@ -26,6 +38,45 @@
           "name": "punctuation.definition.string.template.end.js"
         }
       },
+
+      "patterns": [
+        {
+          "include": "source.ts#template-substitution-element"
+        },
+        {
+          "include": "source.sql"
+        }
+      ]
+    },
+    {
+      "name": "taggedLiteral",
+      "contentName": "meta.embedded.block.sql",
+
+      "begin": "(?i)\\b(sql)((`))",
+      "beginCaptures": {
+        "1": {
+          "name": "entity.name.function.tagged-template.js"
+        },
+
+        "2": {
+          "name": "string.js"
+        },
+
+        "3": {
+          "name": "punctuation.definition.string.template.begin.js"
+        }
+      },
+
+      "end": "(`)",
+      "endCaptures": {
+        "0": {
+          "name": "string.js"
+        },
+        "1": {
+          "name": "punctuation.definition.string.template.end.js"
+        }
+      },
+
       "patterns": [
         {
           "include": "source.ts#template-substitution-element"
