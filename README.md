@@ -1,18 +1,16 @@
 # vscode-sql-template-literal
 
-Syntax highlighting for code like:
+Highlights code inside string as SQL, if that string starts with ```/*sql*/``` or ```sql``` (case-insensitive)
 
 ```js
-const query = sql`SELECT * FROM users`;
-```
+sql`select * from users;` //highlights
+/*sql*/`select * from users;` //highlights
 
-## Publishing
+//does not highlight; there should be no other characters inside the comment,
+//including spaces
+/* sql */`select * from users;` 
 
-May require token, stored in last pass. Go to
-https://forbeslindesay.visualstudio.com/_details/security/tokens if token needs
-regenerating.
-
-```
-npm install -g vsce
-vsce publish
+SQL`select * from users`; //highlights
+/*SQL*/`select * from users`; //highlights
+sQl`select * from users`; //highlights, and ugly
 ```
